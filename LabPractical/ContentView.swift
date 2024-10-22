@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("systemColor") var systemColor: AppTheme = .green
+    @AppStorage("fontSize") var fontSize: Double = 16
+    
+    @StateObject private var viewModel = AppViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            Guess(viewModel: viewModel)
+                .tabItem {
+                    Label("Game", systemImage: "checkmark.circle.badge.questionmark.fill")
+                }
+            
+            Settings(viewModel: viewModel)
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
         }
-        .padding()
     }
 }
 
